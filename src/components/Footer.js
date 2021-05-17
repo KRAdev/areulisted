@@ -14,7 +14,7 @@ export default () => (
       <SocialIcon  url="https://www.facebook.com/listedbookings" />
       </span>
       <span style={{margin:'5px'}}>
-      <SocialIcon url="https://www.instagram.com/areulisted" />тфмшпфе
+      <SocialIcon url="https://www.instagram.com/areulisted" />
       </span>
       <span style={{margin:'5px'}}>
       <SocialIcon url="https://twitter.com/areulisted" />
