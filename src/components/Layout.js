@@ -22,6 +22,21 @@ export default ({ children, meta, title }) => {
               image
             }
           }
+          artists: allMarkdownRemark(
+            filter: { fields: { contentType: { eq: "artists" } } }
+            sort: { order: ASC, fields: [frontmatter___title] }
+          ) {
+            edges {
+              node {
+                fields {
+                  slug
+                }
+                frontmatter {
+                  title
+                }
+              }
+            }
+          }
           allPosts: allMarkdownRemark(
             filter: { fields: { contentType: { eq: "postCategories" } } }
             sort: { order: DESC, fields: [frontmatter___date] }
@@ -49,7 +64,7 @@ export default ({ children, meta, title }) => {
                 })
               : false
           }
-
+          console.log(data);
         return (
           <Fragment>
             <Helmet

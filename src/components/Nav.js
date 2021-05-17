@@ -33,8 +33,9 @@ export class Navigation extends Component {
       NavLink = ({ to, className, children, ...props }) => (
         <Link
           to={to}
-          className={`NavLink ${to === this.state.currentPath ? 'active' : ''
-            } ${className}`}
+          className={`NavLink ${
+            to === this.state.currentPath ? 'active' : ''
+          } ${className}`}
           onClick={this.handleLinkClick}
           {...props}
         >
@@ -49,18 +50,15 @@ export class Navigation extends Component {
             <Logo />
           </Link>
           <div className="smedialinks">
-            <span style={{ margin: '5px' }}>
-              <SocialIcon url="https://www.facebook.com/listedbookings" style={{ height: 25, width: 25 }} />
-            </span>
-            <span style={{ margin: '5px' }}>
-              <SocialIcon url="https://www.instagram.com/areulisted" style={{ height: 25, width: 25 }} />
-            </span>
-            <span style={{ margin: '5px' }}>
-              <SocialIcon url="https://twitter.com/areulisted" style={{ height: 25, width: 25, }} />
-            </span>
-            <span style={{ margin: '5px' }}>
-              <SocialIcon url="https://soundcloud.com/areulisted" style={{ height: 25, width: 25, }} />
-            </span>
+          <span style={{margin:'5px'}}>
+          <SocialIcon url="https://www.facebook.com/listedbookings"  style={{ height: 25, width: 25 }} />
+          </span>
+          <span style={{margin:'5px'}}>
+          <SocialIcon url="https://www.instagram.com/areulisted"  style={{ height: 25, width: 25 }} />
+          </span>
+          <span style={{margin:'5px'}}>
+          <SocialIcon  url="https://twitter.com/areulisted"  style={{ height: 25, width: 25, }} />
+          </span>
           </div>
           <div className="Nav--Links">
             <NavLink id="navc1" to="/home/">Home</NavLink>
@@ -68,11 +66,11 @@ export class Navigation extends Component {
             <NavLink id="navc3" to="/productions/">Productions</NavLink>
             <NavLink id="navc4" to="/news/">Buzz</NavLink>
             <NavLink id="navc5" to="/contact/">Contact</NavLink>
-
+         
           </div>
           <button
             className="Button-blank Nav--MenuButton"
-            style={{ color: 'white' }}
+            style={{color:'white'}}
             onClick={this.handleMenuToggle}
           >
             {active ? <X /> : <Menu />}

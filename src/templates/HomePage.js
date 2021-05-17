@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import { Location } from '@reach/router'
 import PostSection from '../components/PostSection'
 import Layout from '../components/Layout'
 import './HomePage.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { Carousel } from 'react-responsive-carousel';
 
 // Export Template for use in CMS preview
 export const HomePageTemplate = ({
@@ -78,68 +79,73 @@ export const HomePageTemplate = ({
 )
 
 // Export Default BlogIndex for front-end
-const HomePage = ({ data: { page, posts, artists } }) => (
-  <Layout
-    meta={page.frontmatter.meta || false}
-    title={page.frontmatter.title || false}
-  >
-    <div className="fixcenter">
-      <div className="slider">
-        <div
-          className="slide1"
-          style={{
-            background: `url(${page.frontmatter.featuredImage})no-repeat center`,
-            backgroundSize: 'cover'
-          }}
-        ></div>
-        <div
-          className="slide2"
-          style={{
-            background: `url(${page.frontmatter.featuredImage2})no-repeat center`,
-            backgroundSize: 'cover'
-          }}
-        ></div>
-        <div
-          className="slide3"
-          style={{
-            background: `url(${page.frontmatter.featuredImage3})no-repeat center`,
-            backgroundSize: 'cover'
-          }}
-        ></div>
-        <div
-          className="slide4"
-          style={{
-            background: `url(${page.frontmatter.featuredImage4})no-repeat center`,
-            backgroundSize: 'cover'
-          }}
-        ></div>
-        <div
-          className="slide5"
-          style={{
-            background: `url(${page.frontmatter.featuredImage5})no-repeat center`,
-            backgroundSize: 'cover'
-          }}
-        ></div>
+const HomePage = ({ data: { page, posts, artists } }) => {
+  useEffect(() => {
+    console.log(page.frontmatter);
+  }, [])
+  return (
+    <Layout
+      meta={page.frontmatter.meta || false}
+      title={page.frontmatter.title || false}
+    >
+      <div className="fixcenter">
+        <div className="slider">
+          <div
+            className="slide1"
+            style={{
+              background: `url(${page.frontmatter.featuredImage})no-repeat center`,
+              backgroundSize: 'cover'
+            }}
+          ></div>
+          <div
+            className="slide2"
+            style={{
+              background: `url(${page.frontmatter.featuredImage2})no-repeat center`,
+              backgroundSize: 'cover'
+            }}
+          ></div>
+          <div
+            className="slide3"
+            style={{
+              background: `url(${page.frontmatter.featuredImage3})no-repeat center`,
+              backgroundSize: 'cover'
+            }}
+          ></div>
+          <div
+            className="slide4"
+            style={{
+              background: `url(${page.frontmatter.featuredImage4})no-repeat center`,
+              backgroundSize: 'cover'
+            }}
+          ></div>
+          <div
+            className="slide5"
+            style={{
+              background: `url(${page.frontmatter.featuredImage5})no-repeat center`,
+              backgroundSize: 'cover'
+            }}
+          ></div>
+        </div>
       </div>
-    </div>
-    <h1>Buzz</h1>
+      <h1>Buzz</h1>
 
-    <HomePageTemplate
-      {...page}
-      {...page.fields}
-      {...page.frontmatter}
-      posts={posts.edges.map(post => ({
-        ...post.node,
-        ...post.node.frontmatter,
-        ...post.node.fields
-      }))}
-      artists={artists.edges.map(artist => ({
-        title: artist.node.frontmatter.title,
-        slug: artist.node.fields.slug
-      }))}
-    />
-  </Layout>
-)
+      <HomePageTemplate
+        {...page}
+        {...page.fields}
+        {...page.frontmatter}
+        posts={posts.edges.map(post => ({
+          ...post.node,
+          ...post.node.frontmatter,
+          ...post.node.fields
+        }))}
+        artists={artists.edges.map(artist => ({
+          title: artist.node.frontmatter.title,
+          slug: artist.node.fields.slug
+        }))}
+      />
+    </Layout>
+  )
+}
 
 export default HomePage
 
