@@ -1,4 +1,25 @@
 /* Artists Link*/
+.home-artists-links a:nth-child(7n){
+  color: #ffffff;
+}
+.home-artists-links a:nth-child(7n+1){
+  color: #e476ae;
+}
+.home-artists-links a:nth-child(7n+2){
+  color: #ef4137;
+}
+.home-artists-links a:nth-child(7n+3){
+  color: #1895d3;
+}
+.home-artists-links a:nth-child(7n+4){
+  color: #f8ec21;
+}
+.home-artists-links a:nth-child(7n+5){
+  color: #814199;
+}
+.home-artists-links a:nth-child(7n+6){
+  color: #12b258;
+}
 
 .home-artists-links p {
   font-family: 'dinBoldFont', sans-serif;
