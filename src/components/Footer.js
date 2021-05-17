@@ -14,14 +14,17 @@ export default () => (
       <SocialIcon  url="https://www.facebook.com/listedbookings" />
       </span>
       <span style={{margin:'5px'}}>
-      <SocialIcon url="https://www.instagram.com/areulisted" />
+      <SocialIcon url="https://www.instagram.com/areulisted" />тфмшпфе
       </span>
       <span style={{margin:'5px'}}>
       <SocialIcon url="https://twitter.com/areulisted" />
       </span>
       <span style={{margin:'5px'}}>
-      <SocialIcon url="mailto:gunita@listedbookings.com" />
+      <SocialIcon url="https://soundcloud.com/areulisted" />
       </span>
+      {/* <span style={{margin:'5px'}}>
+      <SocialIcon url="mailto:gunita@listedbookings.com" />
+      </span> */}
       </div>
     </h3>
     <br />
