@@ -410,6 +410,7 @@ collections: # A list of collections the CMS should be able to edit
         fields:
           - { label: Site Title, name: siteTitle, widget: string }
           - { label: Site Url, name: siteUrl, widget: string, required: false }
+          - { label: Password for presskit, name: presskitPwd, widget: string, required: false }
           - {
               label: Site Description,
               name: siteDescription,

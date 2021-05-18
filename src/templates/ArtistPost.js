@@ -73,15 +73,29 @@ export const ArtistPostTemplate = ({
 )
 
 // Export Default ArtistPost for front-end
-const ArtistPost = ({ data: { post, allPosts } }) => {
+const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
   const thisEdge = allPosts.edges.find(edge => edge.node.id === post.id)
+  const pwd = settingsYaml.presskitPwd
+
+  function presskitAccess(e, href) {
+    const answer = prompt('Enter password', '')
+    if (answer === pwd) {
+      const link = e.target.closest('a')
+      link.href = href
+      console.log(link, href);
+    } else{
+      alert('Access denied!')
+      return false
+    }
+  }
+
   return (
     <Layout
       meta={post.frontmatter.meta || false}
     >
       <div style={{textAlign:'center',
       }}>
-      <a style={{margin:'30px', textAlign:'center', textDecoration:'none'}} className="example_d" href={post.frontmatter.presskit} >
+      <a style={{margin:'30px', textAlign:'center', textDecoration:'none'}} className="example_d" onClick={e => presskitAccess(e, post.frontmatter.presskit)} href >
       <span className="artistBTN">Presskit</span>
       </a>
       <a style={{margin:'30px',textAlign:'center',  textDecoration:'none'}} href='mailto:gunita@listedbookings.com' className="example_d" >
@@ -168,7 +182,9 @@ export const pageQuery = graphql`
         subtitle
       }
     }
-
+    settingsYaml {
+      presskitPwd
+    }
     allPosts: allMarkdownRemark(
       filter: { fields: { contentType: { eq: "artists" } } }
       sort: { order: DESC, fields: [frontmatter___date] }
