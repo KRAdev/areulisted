@@ -55,6 +55,7 @@ export default ({ children, meta, title }) => {
         }
       `}
       render={data => {
+        const artists = data.artists
         const { siteTitle, socialMediaCard, googleTrackingId } =
             data.settingsYaml || {},
           subNav = {
@@ -64,7 +65,6 @@ export default ({ children, meta, title }) => {
                 })
               : false
           }
-          console.log(data);
         return (
           <Fragment>
             <Helmet
@@ -90,7 +90,7 @@ export default ({ children, meta, title }) => {
 
 
 
-            <Nav subNav={subNav} />
+            <Nav subNav={subNav} artists={artists} />
 
             <Fragment>{children}</Fragment>
 

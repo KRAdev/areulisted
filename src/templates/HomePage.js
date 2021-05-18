@@ -80,9 +80,6 @@ export const HomePageTemplate = ({
 
 // Export Default BlogIndex for front-end
 const HomePage = ({ data: { page, posts, artists } }) => {
-  useEffect(() => {
-    console.log(page.frontmatter);
-  }, [])
   return (
     <Layout
       meta={page.frontmatter.meta || false}

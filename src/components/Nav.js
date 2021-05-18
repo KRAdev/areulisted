@@ -29,18 +29,40 @@ export class Navigation extends Component {
     })
 
   render() {
+    const artists = this.props.artists
     const { active } = this.state,
-      NavLink = ({ to, className, children, ...props }) => (
-        <Link
-          to={to}
-          className={`NavLink ${to === this.state.currentPath ? 'active' : ''
-            } ${className}`}
-          onClick={this.handleLinkClick}
-          {...props}
-        >
-          {children}
-        </Link>
-      )
+      NavLink = ({ to, className, children, dropmenu, items, ...props }) => {
+        return (
+          <>
+            {dropmenu ?
+              <div className="dropmenu">
+                <Link
+                  to={to}
+                  className={`NavLink ${to === this.state.currentPath ? 'active' : ''
+                    } ${className}`}
+                  onClick={this.handleLinkClick}
+                  {...props}
+                >
+                  {children}
+                </Link>
+                <ul>
+                  {items?.map(item => <li key={item.node.frontmatter.title}><Link to={item.node.fields.slug}>{item.node.frontmatter.title}</Link></li>)}
+                </ul>
+              </div>
+              : <Link
+                to={to}
+                className={`NavLink ${to === this.state.currentPath ? 'active' : ''
+                  } ${className}`}
+                onClick={this.handleLinkClick}
+                {...props}
+              >
+                {children}
+              </Link>
+            }
+          </>
+
+        )
+      }
 
     return (
       <nav className={`Nav ${active ? 'Nav-active' : ''}`}>
@@ -64,7 +86,7 @@ export class Navigation extends Component {
           </div>
           <div className="Nav--Links">
             <NavLink id="navc1" to="/home/">Home</NavLink>
-            <NavLink id="navc2" to="/artists/">Artists</NavLink>
+            <NavLink id="navc2" dropmenu items={artists.edges} to="/artists/">Artists</NavLink>
             <NavLink id="navc3" to="/productions/">Productions</NavLink>
             <NavLink id="navc4" to="/news/">Buzz</NavLink>
             <NavLink id="navc5" to="/contact/">Contact</NavLink>
@@ -83,8 +105,8 @@ export class Navigation extends Component {
   }
 }
 
-export default ({ subNav }) => (
-  <Location>{route => <Navigation subNav={subNav} {...route} />}</Location>
+export default ({ subNav, artists }) => (
+  <Location>{route => <Navigation subNav={subNav} {...route} artists={artists} />}</Location>
 )
 
 

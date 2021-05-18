@@ -137,6 +137,26 @@
   float: left;
 }
 
+.dropmenu{
+  position: relative;
+}
+.dropmenu>ul{
+  position: absolute;
+  left: 0;
+  top: 100%;
+  columns: 3;
+  background: #272727;
+  list-style: none;
+  padding: 1em;
+  transition: transform 0.3s;
+  transform: rotateX(90deg);
+  transform-origin: 0 0;
+}
+.dropmenu:hover>ul{
+  transform: rotateX(0deg);
+}
+
+
 @media (max-width: 766px) {
   .smedialinks {
     visibility: hidden;;
