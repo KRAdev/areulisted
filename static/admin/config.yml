@@ -43,6 +43,7 @@ collections: # A list of collections the CMS should be able to edit
           - { label: Featured Image 3, name: featuredImage3, widget: image }
           - { label: Featured Image 4, name: featuredImage4, widget: image }
           - { label: Featured Image 5, name: featuredImage5, widget: image }
+          - { label: Featured Image 6, name: featuredImage6, widget: file }
           - { label: Artist Links, name: subtitle, widget: markdown }
           - label: 'Meta'
             required: false
