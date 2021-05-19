@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import { Location } from '@reach/router'
 import PostSection from '../components/PostSection'
@@ -6,7 +6,8 @@ import Layout from '../components/Layout'
 import './HomePage.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel';
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 // Export Template for use in CMS preview
 export const HomePageTemplate = ({
   subT = [],
@@ -40,7 +41,7 @@ export const HomePageTemplate = ({
               src={listedmixlk}
             ></iframe>
             <div>
-              <div class="home-artists-links" style={{}}>
+              <div className="home-artists-links" style={{}}>
                 <h1>Artists</h1>
 
                 {
@@ -48,7 +49,7 @@ export const HomePageTemplate = ({
                     <div style={{ textAlign: 'center' }}>
                       <p>
                         {artists.map(artist => (
-                          <a style={{ marginRight: '1em' }} href={artist.slug}>
+                          <a style={{ marginRight: '1em' }} key={artist.slug} href={artist.slug}>
                             {artist.title.trim()}
                           </a>
                         ))}
@@ -78,16 +79,66 @@ export const HomePageTemplate = ({
   </Location>
 )
 
+function SlideContent({ url }) {
+  const [type, setType] = useState('')
+  useEffect(() => {
+    getType(url)
+  }, [])
+  async function getType(url) {
+    const res = await fetch(url)
+    setType(res.headers.get('Content-Type'))
+  }
+  return (
+    <>
+      {type && type.includes('image') && <img src={url} />}
+      {type && type.includes('video') && <video controls src={url}></video>}
+    </>
+  )
+}
+
 // Export Default BlogIndex for front-end
 const HomePage = ({ data: { page, posts, artists } }) => {
-  // console.log(page.frontmatter.featuredImage6);
+  console.log(page.frontmatter.featuredImage6);
+
+
+  const settings = {
+    dots: false,
+    arrows: false,
+    fade: true,
+    autoplay: true,
+    autoplaySpeed: 2800,
+    speed: 2800,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
   return (
     <Layout
       meta={page.frontmatter.meta || false}
       title={page.frontmatter.title || false}
     >
       <div className="fixcenter">
-        <div className="slider">
+        <Slider {...settings} className="slider">
+          <div className="slide">
+            <SlideContent url={page.frontmatter.featuredImage} />
+          </div>
+          <div className="slide">
+            <SlideContent url={page.frontmatter.featuredImage2} />
+          </div>
+          <div className="slide">
+            <SlideContent url={page.frontmatter.featuredImage3} />
+          </div>
+          <div className="slide">
+            <SlideContent url={page.frontmatter.featuredImage4} />
+          </div>
+          <div className="slide">
+            <SlideContent url={page.frontmatter.featuredImage5} />
+          </div>
+          <div className="slide">
+            <SlideContent url={page.frontmatter.featuredImage6} />
+          </div>
+        </Slider>
+        {/* <div className="slider">
           <div
             className="slide1"
             style={{
@@ -123,7 +174,7 @@ const HomePage = ({ data: { page, posts, artists } }) => {
               backgroundSize: 'cover'
             }}
           ></div>
-        </div>
+        </div> */}
       </div>
       <h1>Buzz</h1>
 
@@ -171,6 +222,7 @@ export const pageQuery = graphql`
         featuredImage3
         featuredImage4
         featuredImage5
+        featuredImage6
       }
     }
 
