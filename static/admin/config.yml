@@ -353,6 +353,7 @@ collections: # A list of collections the CMS should be able to edit
 
       - { label: Template, name: template, widget: hidden, default: ArtistPost }
       - { label: Artist Name, name: title, widget: string }
+      - { label: Artist Gigwell ID, name: gigwellID, widget: string }
       - {
           label: Featured Image,
           name: featuredImage,
