@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import _get from 'lodash/get'
 import { graphql, Link } from 'gatsby'
 import Content from '../components/Content'
@@ -78,7 +78,6 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
   const pwd = settingsYaml.presskitPwd
 
   useEffect(() => {
-    console.log(post);
     const script = document.createElement('script');
   
     script.src = "https://connect.gigwell.com/booknow/booknow.js";
@@ -103,6 +102,10 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
       return false
     }
   }
+  function gigwellBook(e) {
+    e.preventDefault()
+    document.querySelector('button.booking').click()
+  }
 
   return (
     <Layout
@@ -112,6 +115,7 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
       <div>
         <gigwell-booking-form
           is-popup={true}
+          artist-id={post?.frontmatter?.gigwellID}
           agency-id="635"
           settings="default"></gigwell-booking-form>
       </div>
@@ -123,7 +127,7 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
         <a style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} className="example_d" onClick={e => presskitAccess(e, post.frontmatter.presskit)}>
           <span className="artistBTN">Presskit</span>
         </a>
-        <a style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} href='mailto:gunita@listedbookings.com' className="example_d" >
+        <a onClick={e => gigwellBook(e)} style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} href="#" className="example_d" >
           <span className="artistBTN">Book Artist</span>
         </a>
       </div>
@@ -192,6 +196,7 @@ export const pageQuery = graphql`
       id
       frontmatter {
         title
+        gigwellID
         featuredImage
         template
         spotifywidg
