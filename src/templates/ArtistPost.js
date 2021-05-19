@@ -96,7 +96,6 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
     if (answer === pwd) {
       const link = e.target.closest('a')
       link.href = href
-      console.log(link, href);
     } else {
       alert('Access denied!')
       return false
