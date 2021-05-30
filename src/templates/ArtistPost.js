@@ -79,13 +79,26 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
 
   useEffect(() => {
     const script = document.createElement('script');
-  
+
     script.src = "https://connect.gigwell.com/booknow/booknow.js";
     script.async = true;
     script.crossorigin = '*';
-  
+
     document.body.appendChild(script);
-  
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = "https://connect.gigwell.com/gigstream/gigstream.js";
+    script.async = true;
+    script.crossorigin = '*';
+
+    document.body.appendChild(script);
+
     return () => {
       document.body.removeChild(script);
     }
@@ -142,12 +155,19 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
       <div className="marginbox">
         <div>
           <div className="scroll">
-            <p>
-              <h1 className="shows">Upcoming Shows</h1>
-              {post.frontmatter.upcomingshows}</p>
+            <h2 className="shows">Upcoming Shows</h2>
+            {/* <p>{post.frontmatter.upcomingshows}</p> */}
+            <div>
+              <gigwell-gigstream
+                artists={post?.frontmatter?.gigwellID}
+                identity-id="635"
+                agency="635"
+                settings="lxyd90"></gigwell-gigstream>
+            </div>
           </div>
         </div>
       </div>
+
       {/* <div style={{textAlign:'center',
       }}>
       <a style={{margin:'30px', textAlign:'center', textDecoration:'none'}} className="example_d" href={post.frontmatter.presskit} >
