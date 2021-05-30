@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef } from 'react'
 import _get from 'lodash/get'
 import { graphql, Link } from 'gatsby'
 import Content from '../components/Content'
@@ -18,59 +18,91 @@ export const ArtistPostTemplate = ({
   featuredImage,
   videowidg,
   categories = [],
-}) => (
-  <main>
-    <article
-      itemScope
-      itemType="http://schema.org/BlogPosting"
-    >
-      <div className="card rainbow"  >
-        <div className='htoone' id="demo">
-          <div className="img2 shadow item">
-            <img className="thisone" src={featuredImage} alt={title} />
+}) => {
+  const anim = useRef(null)
+  useEffect(() => {
+    console.log(anim);
+    const colors = ["#ffffff", "#e476ae", "#ef4137", "#1895d3", "#f8ec21", "#814199", "#12b258"];
+    let delayTimer = null
+    let durationTimer = setTimeout(function tick() {
+      anim.current.classList.remove("active");
+      const time = getRandomIntInclusive(1000, 2500);
+      const newStyles = {
+        backgroundColor: colors[getRandomIntInclusive(0, colors.length)],
+        left: `${getRandomIntInclusive(0, 98)}%`,
+        height: `${getRandomIntInclusive(10, 90)}%`,
+      };
+      Object.assign(anim.current.style, newStyles);
+      delayTimer = setTimeout(() => {
+        anim.current.classList.add("active");
+      }, 100);
+      durationTimer = setTimeout(tick, getRandomIntInclusive(1500, 3000));
+    }, 0);
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+     }
+    return () => {
+      clearTimeout(delayTimer)
+      clearTimeout(durationTimer)
+    }
+  }, [])
+  return (
+    <main>
+      <article
+        itemScope
+        itemType="http://schema.org/BlogPosting"
+      >
+        <div className="card rainbow"  >
+          <div className='htoone' id="demo">
+            <div className="img2 shadow item">
+              <div class="anim" ref={anim}></div>
+              <img className="thisone" src={featuredImage} alt={title} />
+            </div>
           </div>
         </div>
-      </div>
-      {categories && (
-        <Fragment>
-          <span></span>
+        {categories && (
+          <Fragment>
+            <span></span>
 
-          {categories.map((cat, index) => (
-            <span
-              key={cat.category}
-            >
-              {cat.category}
-              {/* Add a comma on all but last category */}
-              {index !== categories.length - 1 ? ',' : ''}
-            </span>
-          ))}
-        </Fragment>
-      )}
-      {title && (
-        <h1
-          itemProp="title" className="artistTitle">
-          {title}
-        </h1>
-      )}
-      <div className="text-holder right">
-        <div className="pg1-2-txt">
-          <p>
-            <Content source={body} />
-          </p>
+            {categories.map((cat, index) => (
+              <span
+                key={cat.category}
+              >
+                {cat.category}
+                {/* Add a comma on all but last category */}
+                {index !== categories.length - 1 ? ',' : ''}
+              </span>
+            ))}
+          </Fragment>
+        )}
+        {title && (
+          <h1
+            itemProp="title" className="artistTitle">
+            {title}
+          </h1>
+        )}
+        <div className="text-holder right">
+          <div className="pg1-2-txt">
+            <p>
+              <Content source={body} />
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="marginbox">
+        <div className="marginbox">
 
-        {videowidg && (<iframe title="video widget" className="vid" src={videowidg} frameBorder="0"
-          allow="accelerometer; autoplay; 
-          encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>)}
-        <iframe src={scwidg} title="sc widget" className="sc" style={{ backgroundColor: 'black' }} frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-      </div>
+          {videowidg && (<iframe title="video widget" className="vid" src={videowidg} frameBorder="0"
+            allow="accelerometer; autoplay; 
+            encrypted-media; gyroscope; picture-in-picture"
+          ></iframe>)}
+          <iframe src={scwidg} title="sc widget" className="sc" style={{ backgroundColor: 'black' }} frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
 
-    </article>
-  </main>
-)
+      </article>
+    </main>
+  )
+}
 
 // Export Default ArtistPost for front-end
 const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
@@ -79,13 +111,26 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
 
   useEffect(() => {
     const script = document.createElement('script');
-  
+
     script.src = "https://connect.gigwell.com/booknow/booknow.js";
     script.async = true;
     script.crossorigin = '*';
-  
+
     document.body.appendChild(script);
-  
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = "https://connect.gigwell.com/gigstream/gigstream.js";
+    script.async = true;
+    script.crossorigin = '*';
+
+    document.body.appendChild(script);
+
     return () => {
       document.body.removeChild(script);
     }
@@ -142,12 +187,19 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
       <div className="marginbox">
         <div>
           <div className="scroll">
-            <p>
-              <h1 className="shows">Upcoming Shows</h1>
-              {post.frontmatter.upcomingshows}</p>
+            <h2 className="shows">Upcoming Shows</h2>
+            {/* <p>{post.frontmatter.upcomingshows}</p> */}
+            <div>
+              <gigwell-gigstream
+                artists={post?.frontmatter?.gigwellID}
+                identity-id="635"
+                agency="635"
+                settings="lxyd90"></gigwell-gigstream>
+            </div>
           </div>
         </div>
       </div>
+
       {/* <div style={{textAlign:'center',
       }}>
       <a style={{margin:'30px', textAlign:'center', textDecoration:'none'}} className="example_d" href={post.frontmatter.presskit} >

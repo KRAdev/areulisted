@@ -157,7 +157,7 @@
 }
 
 
-@media (max-width: 766px) {
+/* @media (max-width: 766px) {
   .smedialinks {
     visibility: hidden;;
   }
@@ -167,10 +167,10 @@
   .smedialinks {
     visibility: visible;
   }
-}
+} */
 
 
-@media (max-width: 600px) {
+@media (max-width: 991px) {
   .Nav--Container {
     display: flex;
   }
