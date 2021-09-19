@@ -263,6 +263,7 @@
   }
   .artist.anaglyph{
     position: relative;
+    overflow: hidden;
   }
   .artist.anaglyph::before{
     content: '';
