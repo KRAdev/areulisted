@@ -12,6 +12,8 @@ import randomColor from 'randomcolor';
 
 
 export const ArtistPostTemplate = ({
+  settingsYaml,
+  post,
   title,
   body,
   scwidg,
@@ -20,6 +22,51 @@ export const ArtistPostTemplate = ({
   categories = [],
 }) => {
   const anim = useRef(null)
+
+  const pwd = settingsYaml.presskitPwd
+
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = "https://connect.gigwell.com/booknow/booknow.js";
+    script.async = true;
+    script.crossorigin = '*';
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = "https://connect.gigwell.com/gigstream/gigstream.js";
+    script.async = true;
+    script.crossorigin = '*';
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
+  function presskitAccess(e, href) {
+    const answer = prompt('Enter password', '')
+    if (answer === pwd) {
+      const link = e.target.closest('a')
+      link.href = href
+    } else {
+      alert('Access denied!')
+      return false
+    }
+  }
+  function gigwellBook(e) {
+    e.preventDefault()
+    document.querySelector('button.booking').click()
+  }
+
   useEffect(() => {
     console.log(anim);
     const colors = ["#ffffff", "#e476ae", "#ef4137", "#1895d3", "#f8ec21", "#814199", "#12b258"];
@@ -62,6 +109,16 @@ export const ArtistPostTemplate = ({
             </div>
           </div>
         </div>
+        <div style={{
+            textAlign: 'center',
+          }}>
+            <a style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} className="example_d" onClick={e => presskitAccess(e, post.frontmatter.presskit)}>
+              <span className="artistBTN">Presskit</span>
+            </a>
+            <a onClick={e => gigwellBook(e)} style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} href="#" className="example_d" >
+              <span className="artistBTN">Book Artist</span>
+            </a>
+          </div>
         {categories && (
           <Fragment>
             <span></span>
@@ -78,10 +135,13 @@ export const ArtistPostTemplate = ({
           </Fragment>
         )}
         {title && (
-          <h1
+          <>
+            <h1
             itemProp="title" className="artistTitle">
             {title}
           </h1>
+          
+          </>
         )}
         <div className="text-holder right">
           <div className="pg1-2-txt">
@@ -165,7 +225,7 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
       </div>
 
 
-      <div style={{
+      {/* <div style={{
         textAlign: 'center',
       }}>
         <a style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} className="example_d" onClick={e => presskitAccess(e, post.frontmatter.presskit)}>
@@ -174,8 +234,10 @@ const ArtistPost = ({ data: { post, allPosts, settingsYaml } }) => {
         <a onClick={e => gigwellBook(e)} style={{ margin: '30px', textAlign: 'center', textDecoration: 'none' }} href="#" className="example_d" >
           <span className="artistBTN">Book Artist</span>
         </a>
-      </div>
+      </div> */}
       <ArtistPostTemplate
+        post={post}
+        settingsYaml={settingsYaml}
         {...post}
         {...post.frontmatter}
         body={post.html}

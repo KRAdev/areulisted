@@ -1,25 +1,33 @@
 /* Artists Link*/
-.home-artists-links a:nth-child(7n){
-  color: #ffffff;
-}
-.home-artists-links a:nth-child(7n+1){
-  color: #e476ae;
-}
-.home-artists-links a:nth-child(7n+2){
-  color: #ef4137;
-}
-.home-artists-links a:nth-child(7n+3){
-  color: #1895d3;
-}
-.home-artists-links a:nth-child(7n+4){
+a:hover {
+  border-bottom-color: transparent;
   color: #f8ec21;
 }
-.home-artists-links a:nth-child(7n+5){
-  color: #814199;
+
+.home-artists-links a{
+  color: #fff;
 }
-.home-artists-links a:nth-child(7n+6){
+.home-artists-links a:nth-child(6n):hover{
   color: #12b258;
 }
+.home-artists-links a:nth-child(6n+1):hover{
+  color: #e476ae;
+}
+.home-artists-links a:nth-child(6n+2):hover{
+  color: #ef4137;
+}
+.home-artists-links a:nth-child(6n+3):hover{
+  color: #1895d3;
+}
+.home-artists-links a:nth-child(6n+4):hover{
+  color: #f8ec21;
+}
+.home-artists-links a:nth-child(6n+5):hover{
+  color: #814199;
+}
+/* .home-artists-links a:nth-child(6n+6){
+  
+} */
 .home-artists-links a:hover{
   text-decoration: underline;
 }
@@ -30,10 +38,7 @@
   margin-right: 69px;
 }
 
-a:hover {
-  border-bottom-color: transparent;
-  color: #f8ec21;
-}
+
 
 /* .home-artists-links a:hover {
   border-bottom-color: transparent;

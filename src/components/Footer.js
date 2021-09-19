@@ -10,9 +10,9 @@ export default () => (
       <br>
       </br>
       <div>
-      <span style={{margin:'5px'}}>
+      {/* <span style={{margin:'5px'}}>
       <SocialIcon  url="https://www.facebook.com/listedbookings" />
-      </span>
+      </span> */}
       <span style={{margin:'5px'}}>
       <SocialIcon  url="https://www.facebook.com/listedproductions" />
       </span>

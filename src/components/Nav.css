@@ -1,12 +1,9 @@
-
-
-
 .Nav {
   position: sticky;
   z-index: 1;
-  margin-top:12px;
-  bottom:-22px;
-  height:80px;
+  margin-top: 12px;
+  bottom: -22px;
+  height: 80px;
 }
 
 .Nav--Container {
@@ -22,7 +19,6 @@
   justify-content: center;
   flex-direction: row;
   right: 69px;
-
 }
 
 .Nav--Links > * + * {
@@ -54,26 +50,25 @@
 .NavLink.active,
 .NavLink:focus {
   color: var(--primary);
-
 }
 
-#navc1:hover{
+#navc1:hover {
   color: #e476ae;
 }
 
-#navc2:hover{
+#navc2:hover {
   color: #ef4137;
 }
 
-#navc3:hover{
+#navc3:hover {
   color: #1895d3;
 }
 
-#navc4:hover{
+#navc4:hover {
   color: #814199;
 }
 
-#navc5:hover{
+#navc5:hover {
   color: #12b258;
 }
 
@@ -102,7 +97,7 @@
 
 .Nav--GroupLinks {
   position: absolute;
-  
+
   left: 0;
   width: auto;
   background: rgb(0, 0, 0);
@@ -137,25 +132,27 @@
   float: left;
 }
 
-.dropmenu{
+.dropmenu {
   position: relative;
 }
-.dropmenu>ul{
+.dropmenu > ul {
   position: absolute;
   left: 0;
   top: 100%;
-  columns: 3;
+  columns: 2;
+  white-space: nowrap;
+  border-top: 20px solid transparent;
   background: #272727;
+  background-clip: padding-box;
   list-style: none;
   padding: 1em;
   transition: transform 0.3s;
   transform: rotateX(90deg);
   transform-origin: 0 0;
 }
-.dropmenu:hover>ul{
+.dropmenu:hover > ul {
   transform: rotateX(0deg);
 }
-
 
 /* @media (max-width: 766px) {
   .smedialinks {
@@ -169,12 +166,11 @@
   }
 } */
 
-
 @media (max-width: 991px) {
   .Nav--Container {
     display: flex;
   }
-  .dropmenu>ul{
+  .dropmenu > ul {
     display: none;
   }
 
@@ -257,7 +253,7 @@
 }
 @media (max-width: 320px) {
   .Nav .Logo {
-    width: 75px!important;
+    width: 75px !important;
   }
 }
 
