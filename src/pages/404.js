@@ -206,6 +206,8 @@ export default ({ children }) => (
             </p>
           </div>
         </section>
+        <h1>Below is a list of animation elements, as well as several presets. Various animation parameters such as speed, size, color, directions, combinations, etc. can be changed.  Please indicate your favorite animation options, you can also send screenshots with the desired positioning of the animation effects for final implementation.
+</h1>
         <div dangerouslySetInnerHTML={createMarkup()}>
 
         </div>
